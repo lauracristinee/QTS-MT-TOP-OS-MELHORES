@@ -218,3 +218,98 @@ public class ContaCorrenteTest {
 	}
 }
 
+---------------------------------------------------------------------------------------------------------------------------------
+TESTEEESS
+package carro_junit_turma_azul;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
+
+public class CarroTest {
+		
+	@Test
+	//ligado
+	public void testeLigado() {
+		Carro carro =  new Carro();
+		carro.ligar();
+		assertTrue(carro.ligado);
+
+	}
+	
+	
+	@Test
+	//desligado
+	public void testeDesligado() {
+		Carro carro =  new Carro();
+		carro.desligar();
+		assertFalse(carro.ligado);
+
+	}
+	
+	@Test
+	//acelerar sucesso com o carro ligado
+	public void acelerarLigadoTest() {
+		// cenário
+		Carro carro =  new Carro();
+		carro.ligar();
+		assertTrue(carro.ligado);
+		carro.veloMax = 250;
+		// ação
+		carro.acelerar(50);
+		//verif.
+		assertEquals(50, carro.veloAtual, 0.1);
+	}
+	
+	@Test
+	//acelerar erro com carro desligado
+	public void acelerarDesligadoTest() {
+		// cenário
+		Carro carro =  new Carro();
+		carro.desligar();
+		assertFalse(carro.ligado);
+		carro.veloMax = 250;
+		carro.acelerar(50);
+        //verif.
+		assertEquals(0, carro.veloAtual, 0.1);
+	}
+		
+	@Test
+	//acelerar ultrapassando
+		public void acelerarUltrapassandoTest() {
+			Carro carro =  new Carro();
+			carro.ligar();
+			assertTrue(carro.ligado);
+			carro.veloAtual = 0;
+			carro.veloMax = 250;
+			carro.acelerar(300);
+			assertEquals(250, carro.veloMax, 0.1);
+		}
+	
+	@Test
+	//acelerar velocidade não negativa
+	     public void acelerarNegativa() {
+			Carro carro =  new Carro();
+			carro.veloAtual = 100;
+			carro.veloMax = 250;
+			carro.acelerar(300);
+			assertEquals(100, carro.veloAtual, 0.1);
+		}
+	
+	
+	@Test
+	//frear
+		public void frear() {
+			Carro carro =  new Carro();
+			carro.ligar();
+			carro.veloAtual = 100;
+			carro.frear (20);
+			assertEquals(80, carro.veloAtual, 0.1);
+		}
+
+	
+}
+
+
